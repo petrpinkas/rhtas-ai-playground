@@ -1,5 +1,6 @@
 repositories:
   securesign: git@github.com:securesign
+  release-engineering: git@gitlab.cee.redhat.com:releng
 
 projects:
   rhtas:
@@ -47,8 +48,10 @@ projects:
         branch: main
       - url: securesign/sigstore-e2e
       - url: securesign/structural-tests
-        branch: release-1.3.3
-      - url: securesign/releases
         branch: main
+      - url: securesign/releases
+        branch: release-1.3.5
       - url: securesign/pipelines
+        branch: main
+      - url: release-engineering/konflux-release-data
         branch: main
