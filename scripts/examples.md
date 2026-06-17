@@ -1,3 +1,103 @@
+- [check-local-changes](#check-local-changes)
+- [check-mintmaker-docker-prs](#check-mintmaker-docker-prs)
+- [check-tags-n-branches](#check-tags-n-branches)
+- [get-repos](#get-repos)
+- [list-merged-prs](#list-merged-prs)
+- [list-merged-prs-all](#list-merged-prs-all)
+
+## check-local-changes
+
+Scans a directory of git repositories for uncommitted changes.
+
+```
+check-local-changes.sh [directory]
+```
+
+- `directory` - directory containing git repos (default: `.`)
+
+### Examples
+
+```bash
+./scripts/check-local-changes.sh repos
+```
+
+## check-mintmaker-docker-prs
+
+Finds open Konflux/mintmaker docker-deps PRs targeting a release branch across all git repositories in a directory.
+
+```
+check-mintmaker-docker-prs.sh <release-branch> [directory]
+```
+
+- `<release-branch>` - base branch and mintmaker head prefix (e.g. `release-1.3`)
+- `directory` - directory containing git repos (default: `.`)
+
+### Examples
+
+```bash
+./scripts/check-mintmaker-docker-prs.sh release-1.3 repos
+```
+
+## check-tags-n-branches
+
+Checks whether expected release branches and tags exist in remote repositories, based on release groups defined in the config.
+
+```
+check-tags-n-branches.sh [--repo <name>]... [--branch <name>]... [--tag <name>]...
+                      [--branches-only] [--tags-only]
+```
+
+- `--repo <name>` - check only this repo (short name or full prefix/name)
+- `--branch <name>` - check only this branch
+- `--tag <name>` - check only this tag
+- `--branches-only` - skip tag checks
+- `--tags-only` - skip branch checks
+
+All filters can be repeated and match against what is defined in the config. With no flags, checks everything across all groups.
+
+### Configuration
+
+Uses the `release_groups` section in `scripts-go/config/repositories.yaml`. Each group defines a set of repos and the branches/tags expected to exist in them:
+
+```yaml
+release_groups:
+  securesign:
+    release_branches:
+      - release-1.3
+      - release-1.4
+    release_tags:
+      - rhtas-v1.3.5
+      - rhtas-v1.4.1
+    repos:
+      - securesign/cosign
+      - securesign/fulcio
+
+  tags-only:
+    release_tags:
+      - rhtas-v1.3.5
+    repos:
+      - securesign/fbc
+```
+
+Repo URLs use prefix aliases from the `repositories` section (same as `get-repos`). Groups without `release_branches` or `release_tags` are skipped.
+
+### Examples
+
+```bash
+# Check all repos, branches, and tags across all release groups
+./scripts/check-tags-n-branches.sh
+
+# Check a single repo
+./scripts/check-tags-n-branches.sh --repo cosign
+
+# Check only a specific branch across all repos
+./scripts/check-tags-n-branches.sh --branch release-1.3
+
+# Check only branches (skip tags)
+./scripts/check-tags-n-branches.sh --branches-only
+
+```
+
 ## get-repos
 
 ```
@@ -103,37 +203,4 @@ list-merged-prs-all.sh [--days N]
 
 # All securesign repos, last 3 days
 ./scripts/list-merged-prs-all.sh --days 3
-```
-
-## check-local-changes
-
-Scans a directory of git repositories for uncommitted changes.
-
-```
-check-local-changes.sh [directory]
-```
-
-- `directory` - directory containing git repos (default: `.`)
-
-### Examples
-
-```bash
-./scripts/check-local-changes.sh repos
-```
-
-## check-mintmaker-docker-prs
-
-Finds open Konflux/mintmaker docker-deps PRs targeting a release branch across all git repositories in a directory.
-
-```
-check-mintmaker-docker-prs.sh <release-branch> [directory]
-```
-
-- `<release-branch>` - base branch and mintmaker head prefix (e.g. `release-1.3`)
-- `directory` - directory containing git repos (default: `.`)
-
-### Examples
-
-```bash
-./scripts/check-mintmaker-docker-prs.sh release-1.3 repos
 ```
