@@ -3,8 +3,14 @@ repositories:
   release-engineering: git@gitlab.cee.redhat.com:releng
 
 projects:
+  rhtas-tests:
+    default_branch: main
+    repos:
+      - url: securesign/sigstore-e2e
+      - url: securesign/structural-tests
+      - url: securesign/releases
+ 
   rhtas:
-    dir: /Users/ppinkas/own/redhat/grepos/rhtas
     default_branch: main
     repos:
       - url: securesign/certificate-transparency-go
@@ -27,9 +33,8 @@ projects:
       - url: securesign/releases
       - url: securesign/pipelines
 
-  rhtas-1.3:
-    dir: /Users/ppinkas/own/redhat/grepos/rhtas-1.3
-    default_branch: release-1.3
+  rhtas-1.4:
+    default_branch: release-1.4
     repos:
       - url: securesign/certificate-transparency-go
       - url: securesign/cosign
@@ -50,7 +55,7 @@ projects:
       - url: securesign/structural-tests
         branch: main
       - url: securesign/releases
-        branch: release-1.3.5
+        branch: release-1.4.1
       - url: securesign/pipelines
         branch: main
       - url: release-engineering/konflux-release-data

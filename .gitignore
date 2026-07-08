@@ -1,5 +1,5 @@
 # Go binaries
-scripts-go/get-repos
+scripts-go/get-projects
 scripts-go/check-tags-n-branches
 
 # Claude Code
