@@ -1,7 +1,7 @@
 - [check-local-changes](#check-local-changes)
 - [check-mintmaker-docker-prs](#check-mintmaker-docker-prs)
 - [check-tags-n-branches](#check-tags-n-branches)
-- [get-repos](#get-repos)
+- [get-projects](#get-projects)
 - [list-merged-prs](#list-merged-prs)
 - [list-merged-prs-all](#list-merged-prs-all)
 
@@ -79,7 +79,7 @@ release_groups:
       - securesign/fbc
 ```
 
-Repo URLs use prefix aliases from the `repositories` section (same as `get-repos`). Groups without `release_branches` or `release_tags` are skipped.
+Repo URLs use prefix aliases from the `repositories` section (same as `get-projects`). Groups without `release_branches` or `release_tags` are skipped.
 
 ### Examples
 
@@ -98,14 +98,14 @@ Repo URLs use prefix aliases from the `repositories` section (same as `get-repos
 
 ```
 
-## get-repos
+## get-projects
 
 ```
-get-repos.sh <project> [--output-dir <path>] [--force-cleanup]
+get-projects.sh <project> [--output-dir <path>] [--force-cleanup]
 ```
 
 - `<project>` - project to clone/fetch (e.g. `rhtas`, `rhtas-releases`)
-- `--output-dir <path>` - override the output directory from config
+- `--output-dir <path>` - output directory (default: current directory)
 - `--force-cleanup` - discard local changes before checkout
 
 ### Branch resolution order
@@ -127,17 +127,11 @@ repositories:
 
 projects:
   rhtas:
-    dir: ../repositories/rhtas          # relative path
     default_branch: main
     repos:
       - url: securesign/cosign          # expands to git@github.com:securesign/cosign.git
       - url: securesign/tough
         branch: develop                  # per-repo branch override
-  rhtas-abs:
-    dir: /home/user/projects/rhtas      # absolute path
-    default_branch: main
-    repos:
-      - url: securesign/cosign
 ```
 
 Full git URLs also work directly (bypassing the prefix lookup):
@@ -150,18 +144,18 @@ repos:
 ### Examples
 
 ```bash
-# Clone/fetch all repos in the rhtas project using configured dir and branches
-./scripts/get-repos.sh rhtas
+# Clone/fetch all repos in the rhtas project into the current directory
+./scripts/get-projects.sh rhtas
 
 # Clone/fetch all repos in rhtas-releases
-./scripts/get-repos.sh rhtas-releases
+./scripts/get-projects.sh rhtas-releases
 
 # Override the output directory (relative or absolute)
-./scripts/get-repos.sh rhtas --output-dir ./my-repos
-./scripts/get-repos.sh rhtas --output-dir /tmp/rhtas-repos
+./scripts/get-projects.sh rhtas --output-dir ./my-repos
+./scripts/get-projects.sh rhtas --output-dir /tmp/rhtas-repos
 
 # Discard local changes before checkout
-./scripts/get-repos.sh rhtas --force-cleanup
+./scripts/get-projects.sh rhtas --force-cleanup
 ```
 
 ## list-merged-prs
