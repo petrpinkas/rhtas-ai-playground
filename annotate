@@ -1,8 +1,0 @@
-/Users/ppinkas/own/redhat/grepos/rhtas-1.4/releases/1.4.2/stable/snapshot.json
-
-oc get snapshots.appstudio.redhat.com -n rhtas-tenant -o json \
-  | jq -r '.items[]
-    | select(.metadata.annotations["test.appstudio.openshift.io/keep-snapshot"] == "true")
-    | .metadata.name'
-
-oc annotate snapshot rhtas-fbc-20260604-112110-000 test.appstudio.openshift.io/keep-snapshot=tru
