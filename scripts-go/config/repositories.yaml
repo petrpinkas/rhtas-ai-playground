@@ -1,15 +1,10 @@
+# Used by: get-projects — Git URL prefix aliases for short repo references
 repositories:
   securesign: git@github.com:securesign
   release-engineering: git@gitlab.cee.redhat.com:releng
 
+# Used by: get-projects — Named sets of repos to clone/fetch and checkout
 projects:
-  rhtas-tests:
-    default_branch: main
-    repos:
-      - url: securesign/sigstore-e2e
-      - url: securesign/structural-tests
-      - url: securesign/releases
- 
   rhtas:
     default_branch: main
     repos:
@@ -43,6 +38,33 @@ projects:
       - url: securesign/rekor
       - url: securesign/rekor-monitor
       - url: securesign/rekor-search-ui
+      - url: securesign/timestamp-authority
+      - url: securesign/tough
+      - url: securesign/trillian
+      - url: securesign/artifact-signer-ansible
+      - url: securesign/secure-sign-operator
+      - url: securesign/fbc
+        branch: main
+      - url: securesign/sigstore-e2e
+      - url: securesign/structural-tests
+        branch: main
+      - url: securesign/releases
+        branch: release-1.4.2
+      - url: securesign/pipelines
+        branch: main
+      - url: release-engineering/konflux-release-data
+        branch: main
+
+  rhtas-1.3:
+    default_branch: release-1.3
+    repos:
+      - url: securesign/certificate-transparency-go
+      - url: securesign/cosign
+      - url: securesign/fulcio
+      - url: securesign/gitsign
+      - url: securesign/rekor
+      - url: securesign/rekor-monitor
+      - url: securesign/rekor-search-ui
       - url: securesign/segment-backup-job
       - url: securesign/timestamp-authority
       - url: securesign/tough
@@ -55,12 +77,92 @@ projects:
       - url: securesign/structural-tests
         branch: main
       - url: securesign/releases
-        branch: release-1.4.1
+        branch: release-1.3.6
       - url: securesign/pipelines
         branch: main
-      - url: release-engineering/konflux-release-data
-        branch: main
 
+  rhtas-own:
+    default_branch: main
+    repos:
+      - url: securesign/actions
+      - url: securesign/artifact-signer-ansible
+      - url: securesign/fbc
+      - url: securesign/model-validation-operator
+      - url: securesign/pipelines
+      - url: securesign/policy-controller-operator
+      - url: securesign/releases
+      - url: securesign/renovate-config
+      - url: securesign/rekor-search-ui
+      - url: securesign/rhtas-benchmark
+      - url: securesign/rhtas-console
+      - url: securesign/rhtas-console-ui
+      - url: securesign/secure-sign-operator
+      - url: securesign/segment-backup-job
+      - url: securesign/sigstore-e2e
+      - url: securesign/structural-tests
+      - url: securesign/tufcli
+
+  rhtas-fork:
+    default_branch: main
+    repos:
+      - url: securesign/certificate-transparency-go
+      - url: securesign/cosign
+      - url: securesign/fulcio
+      - url: securesign/gitsign
+      - url: securesign/model-transparency
+      - url: securesign/model-transparency-go
+      - url: securesign/policy-controller
+      - url: securesign/rekor
+      - url: securesign/rekor-monitor
+      - url: securesign/timestamp-authority
+      - url: securesign/tough
+      - url: securesign/trillian
+
+  rhtas-tests:
+    default_branch: main
+    repos:
+      - url: securesign/sigstore-e2e
+      - url: securesign/structural-tests
+      - url: securesign/releases
+
+  release-data:
+    default_branch: main
+    repos:
+      - url: release-engineering/konflux-release-data
+
+  rhtas-all-main:
+    default_branch: main
+    repos:
+      - url: securesign/actions
+      - url: securesign/artifact-signer-ansible
+      - url: securesign/certificate-transparency-go
+      - url: securesign/cosign
+      - url: securesign/fbc
+      - url: securesign/fulcio
+      - url: securesign/gitsign
+      - url: securesign/model-transparency
+      - url: securesign/model-transparency-go
+      - url: securesign/model-validation-operator
+      - url: securesign/pipelines
+      - url: securesign/policy-controller
+      - url: securesign/policy-controller-operator
+      - url: securesign/rekor
+      - url: securesign/rekor-monitor
+      - url: securesign/rekor-search-ui
+      - url: securesign/releases
+      - url: securesign/rhtas-benchmark
+      - url: securesign/rhtas-console
+      - url: securesign/rhtas-console-ui
+      - url: securesign/secure-sign-operator
+      - url: securesign/segment-backup-job
+      - url: securesign/sigstore-e2e
+      - url: securesign/structural-tests
+      - url: securesign/timestamp-authority
+      - url: securesign/tough
+      - url: securesign/trillian
+      - url: securesign/tufcli
+
+# Used by: check-tags-n-branches — Repos grouped by release branches and tags to verify
 release_groups:
   securesign:
     release_branches:
@@ -95,7 +197,7 @@ release_groups:
       - release-1.4
     repos:
       - securesign/sigstore-e2e
- 
+
   main-only:
     repos:
       - securesign/structural-tests
