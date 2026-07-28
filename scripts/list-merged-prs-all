@@ -78,6 +78,6 @@ while [[ $# -gt 0 ]]; do
 done
 
 for repo in "${REPOS[@]}"; do
-  "$SCRIPT_DIR/list-merged-prs.sh" "$repo" --days "$DAYS"
+  "$SCRIPT_DIR/list-merged-prs" "$repo" --days "$DAYS"
   echo ""
 done

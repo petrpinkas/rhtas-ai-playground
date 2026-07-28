@@ -10,7 +10,7 @@
 Scans a directory of git repositories for uncommitted changes.
 
 ```
-check-local-changes.sh [directory]
+check-local-changes [directory]
 ```
 
 - `directory` - directory containing git repos (default: `.`)
@@ -18,7 +18,7 @@ check-local-changes.sh [directory]
 ### Examples
 
 ```bash
-./scripts/check-local-changes.sh repos
+./scripts/check-local-changes repos
 ```
 
 ## check-mintmaker-docker-prs
@@ -26,7 +26,7 @@ check-local-changes.sh [directory]
 Finds open Konflux/mintmaker docker-deps PRs targeting a release branch across all git repositories in a directory.
 
 ```
-check-mintmaker-docker-prs.sh <release-branch> [directory]
+check-mintmaker-docker-prs <release-branch> [directory]
 ```
 
 - `<release-branch>` - base branch and mintmaker head prefix (e.g. `release-1.3`)
@@ -35,7 +35,7 @@ check-mintmaker-docker-prs.sh <release-branch> [directory]
 ### Examples
 
 ```bash
-./scripts/check-mintmaker-docker-prs.sh release-1.3 repos
+./scripts/check-mintmaker-docker-prs release-1.3 repos
 ```
 
 ## check-tags-n-branches
@@ -43,7 +43,7 @@ check-mintmaker-docker-prs.sh <release-branch> [directory]
 Checks whether expected release branches and tags exist in remote repositories, based on release groups defined in the config.
 
 ```
-check-tags-n-branches.sh [--repo <name>]... [--branch <name>]... [--tag <name>]...
+check-tags-n-branches [--repo <name>]... [--branch <name>]... [--tag <name>]...
                       [--branches-only] [--tags-only]
 ```
 
@@ -85,23 +85,23 @@ Repo URLs use prefix aliases from the `repositories` section (same as `get-proje
 
 ```bash
 # Check all repos, branches, and tags across all release groups
-./scripts/check-tags-n-branches.sh
+./scripts/check-tags-n-branches
 
 # Check a single repo
-./scripts/check-tags-n-branches.sh --repo cosign
+./scripts/check-tags-n-branches --repo cosign
 
 # Check only a specific branch across all repos
-./scripts/check-tags-n-branches.sh --branch release-1.3
+./scripts/check-tags-n-branches --branch release-1.3
 
 # Check only branches (skip tags)
-./scripts/check-tags-n-branches.sh --branches-only
+./scripts/check-tags-n-branches --branches-only
 
 ```
 
 ## get-projects
 
 ```
-get-projects.sh <project> [--output-dir <path>] [--force-cleanup]
+get-projects <project> [--output-dir <path>] [--force-cleanup]
 ```
 
 - `<project>` - project to clone/fetch (e.g. `rhtas`, `rhtas-releases`)
@@ -145,17 +145,17 @@ repos:
 
 ```bash
 # Clone/fetch all repos in the rhtas project into the current directory
-./scripts/get-projects.sh rhtas
+./scripts/get-projects rhtas
 
 # Clone/fetch all repos in rhtas-releases
-./scripts/get-projects.sh rhtas-releases
+./scripts/get-projects rhtas-releases
 
 # Override the output directory (relative or absolute)
-./scripts/get-projects.sh rhtas --output-dir ./my-repos
-./scripts/get-projects.sh rhtas --output-dir /tmp/rhtas-repos
+./scripts/get-projects rhtas --output-dir ./my-repos
+./scripts/get-projects rhtas --output-dir /tmp/rhtas-repos
 
 # Discard local changes before checkout
-./scripts/get-projects.sh rhtas --force-cleanup
+./scripts/get-projects rhtas --force-cleanup
 ```
 
 ## list-merged-prs
@@ -163,7 +163,7 @@ repos:
 Lists merged PRs for a single GitHub repository, including author, merger, commits, and changed files.
 
 ```
-list-merged-prs.sh <repo-slug> [--days N]
+list-merged-prs <repo-slug> [--days N]
 ```
 
 - `<repo-slug>` - GitHub repository (e.g. `securesign/cosign`)
@@ -173,18 +173,18 @@ list-merged-prs.sh <repo-slug> [--days N]
 
 ```bash
 # List PRs merged in securesign/cosign in the last 7 days
-./scripts/list-merged-prs.sh securesign/cosign
+./scripts/list-merged-prs securesign/cosign
 
 # Last 30 days
-./scripts/list-merged-prs.sh securesign/cosign --days 30
+./scripts/list-merged-prs securesign/cosign --days 30
 ```
 
 ## list-merged-prs-all
 
-Runs `list-merged-prs.sh` on all securesign repositories. The repo list is defined at the top of the script.
+Runs `list-merged-prs` on all securesign repositories. The repo list is defined at the top of the script.
 
 ```
-list-merged-prs-all.sh [--days N]
+list-merged-prs-all [--days N]
 ```
 
 - `--days N` - look back N days (default: 7)
@@ -193,8 +193,8 @@ list-merged-prs-all.sh [--days N]
 
 ```bash
 # All securesign repos, last 7 days
-./scripts/list-merged-prs-all.sh
+./scripts/list-merged-prs-all
 
 # All securesign repos, last 3 days
-./scripts/list-merged-prs-all.sh --days 3
+./scripts/list-merged-prs-all --days 3
 ```

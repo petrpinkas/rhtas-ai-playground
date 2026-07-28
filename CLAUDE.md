@@ -13,10 +13,10 @@ A tool to batch-clone/fetch and checkout multiple Git repositories defined in a 
 go build ./cmd/get-projects/
 
 # Initialize a project in the current directory (creates .projects.yaml)
-./scripts/get-projects.sh init rhtas
+./scripts/get-projects init rhtas
 
 # Update repos from .projects.yaml in the current directory
-./scripts/get-projects.sh [--force-cleanup]
+./scripts/get-projects [--force-cleanup]
 ```
 
 No tests exist. Single dependency: `gopkg.in/yaml.v3`.
