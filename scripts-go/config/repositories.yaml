@@ -81,6 +81,28 @@ projects:
       - url: securesign/pipelines
         branch: main
 
+  releases-1.4.3:
+    repos:
+      - url: securesign/releases
+        branch: main
+        dir: releases-main
+      - url: securesign/releases
+        branch: release-1.4.3
+        dir: releases-release-1.4.3
+      - url: securesign/releases
+        branch: release-pco-1.0.2
+        dir: releases-release-pco-1.0.2
+      - url: securesign/releases
+        branch: release-mt-go-0.0.3
+        dir: releases-release-mt-go-0.0.3
+      - url: securesign/releases
+        branch: release_mt_1.0.3
+        dir: releases-release_mt_1.0.3
+      - url: securesign/releases
+        branch: release-mvo-0.1.2
+        dir: releases-release-mvo-0.1.2
+
+
   rhtas-own:
     default_branch: main
     repos:
@@ -170,7 +192,10 @@ release_groups:
       - release-1.4
     release_tags:
       - rhtas-v1.3.5
+      - rhtas-v1.3.6
       - rhtas-v1.4.1
+      - rhtas-v1.4.2
+      - rhtas-v1.4.3
     repos:
       - securesign/certificate-transparency-go
       - securesign/cosign
@@ -187,7 +212,10 @@ release_groups:
   tags-only:
     release_tags:
       - rhtas-v1.3.5
+      - rhtas-v1.3.6
       - rhtas-v1.4.1
+      - rhtas-v1.4.2
+      - rhtas-v1.4.3
     repos:
       - securesign/fbc
 
@@ -206,7 +234,10 @@ release_groups:
   releases:
     release_branches:
       - release-1.3.5
+      - release-1.3.6
       - release-1.4.1
+      - release-1.4.2
+      - release-1.4.3
     repos:
       - securesign/releases
 
@@ -216,7 +247,10 @@ release_groups:
       - release-1.4
     release_tags:
       - v1.3.5
+      - v1.3.6
       - v1.4.1
+      - v1.4.2
+      - v1.4.3
     repos:
       - securesign/secure-sign-operator
 
@@ -225,6 +259,7 @@ release_groups:
       - release-1.3
     release_tags:
       - rhtas-v1.3.5
+      - rhtas-v1.3.6
     repos:
       - securesign/segment-backup-job
 
@@ -241,6 +276,8 @@ release_groups:
       - release-1.0
     release_tags:
       - rhtas-v1.0.0
+      - rhtas-v1.0.1
+      - rhtas-v1.0.2
     repos:
       - securesign/policy-controller
       - securesign/policy-controller-operator
