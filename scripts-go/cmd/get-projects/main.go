@@ -25,6 +25,7 @@ type Project struct {
 type Repo struct {
 	URL    string `yaml:"url"`
 	Branch string `yaml:"branch,omitempty"`
+	Dir    string `yaml:"dir,omitempty"`
 }
 
 type LocalConfig struct {
@@ -87,8 +88,8 @@ func runInit(projectNames []string, callerDir string) error {
 	}
 
 	usedPrefixes := map[string]string{}
-	seen := map[string]string{}        // url -> resolved branch
-	seenSource := map[string]string{}  // url -> project name that added it
+	seen := map[string]string{}        // effective dir -> resolved branch
+	seenSource := map[string]string{}  // effective dir -> project name that added it
 	var mergedRepos []Repo
 	defaultBranch := ""
 
@@ -112,18 +113,23 @@ func runInit(projectNames []string, callerDir string) error {
 				branch = project.DefaultBranch
 			}
 
-			if prev, exists := seen[repo.URL]; exists {
+			effectiveDir := repo.Dir
+			if effectiveDir == "" {
+				effectiveDir = repoName(resolveURL(repo.URL, cfg.Repositories))
+			}
+
+			if prev, exists := seen[effectiveDir]; exists {
 				if prev != branch {
-					return fmt.Errorf("conflict for %s: branch %q (from %s) vs %q (from %s)",
-						repo.URL, prev, seenSource[repo.URL], branch, projectName)
+					return fmt.Errorf("conflict for dir %q: branch %q (from %s) vs %q (from %s)",
+						effectiveDir, prev, seenSource[effectiveDir], branch, projectName)
 				}
 				continue
 			}
 
-			seen[repo.URL] = branch
-			seenSource[repo.URL] = projectName
+			seen[effectiveDir] = branch
+			seenSource[effectiveDir] = projectName
 
-			outRepo := Repo{URL: repo.URL}
+			outRepo := Repo{URL: repo.URL, Dir: repo.Dir}
 			if branch != defaultBranch {
 				outRepo.Branch = branch
 			}
@@ -187,7 +193,10 @@ func runUpdate(callerDir string, forceCleanup bool) error {
 	maxBranch := 0
 	for _, repo := range local.Repos {
 		fullURL := resolveURL(repo.URL, local.Repositories)
-		name := repoName(fullURL)
+		name := repo.Dir
+		if name == "" {
+			name = repoName(fullURL)
+		}
 		branch := repo.Branch
 		if branch == "" {
 			branch = local.DefaultBranch
